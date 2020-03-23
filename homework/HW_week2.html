@@ -75,7 +75,54 @@
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
     <script>
+
         function finish_order(){
+            buyer_value = $('#buyer').val()
+            quantity_value = $('#inputGroupSelect01').val()
+            buyer_address_value = $('#buyer_address').val()
+            phone_number_value = $('#phone_number').val()
+            check_pn_layout = phone_number_value.split('-')
+            // $('#buyer').focus()
+
+            if (buyer_value){
+                if(quantity_value!='Choose...'){
+                    if(buyer_address_value){
+                        if(phone_number_value){
+
+                            if(check_pn_layout.length==3 && check_pn_layout[0]=='010' &&
+                                $.isNumeric(check_pn_layout[1]) && $.isNumeric(check_pn_layout[2]) &&
+                                check_pn_layout[1].length == 4 && check_pn_layout[2].length == 4){
+                                alert('주문완료!')
+                            }
+                            else{
+                                $('#phone_number').focus()
+                                alert('010-xxxx-xxxx 형식으로 입력해주세요.')
+                            }
+                        }
+                        else{
+                            $('#phone_number').focus()
+                            alert('전화번호를 입력해주세요')
+                        }
+                    }
+                    else{
+                        $('#buyer_address').focus()
+                        alert('주소를 입력해주세요.')
+                    }
+                }
+                else{
+                    $('#inputGroupSelect01').focus()
+                    alert('수량을 입력해주세요.')
+                }
+            }
+            else{
+                $('#buyer').focus()
+                alert('이름을 입력해주세요.')
+            }
+            
+
+
+
+    
 
             
         }
@@ -158,7 +205,7 @@
         </section>
 
         <footer>
-            <button onclick = "finish_order" type="button" class="btn btn-outline-secondary">주문완료</button>
+            <button onclick = "finish_order()" type="button" class="btn btn-outline-secondary">주문완료</button>
         </footer>
         
     </div>
